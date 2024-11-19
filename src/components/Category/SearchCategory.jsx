@@ -1,0 +1,34 @@
+"use client";
+import React, { useState } from "react";
+import { IoSearchSharp } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
+
+export default function SearchCategory() {
+  const [search, setSearch] = useState("");
+
+  return (
+    <div className="hidden md:flex h-16 relative items-center border-green-500 mt-2 ">
+      {/* Search Icon on the Left */}
+      <button className="w-10 h-16 flex items-center justify-center text-gray-400 bg-white border-r-transparent border border-green-500    duration-200 cursor-pointer rounded-l-lg">
+        <IoSearchSharp size={28}/>
+      </button>
+
+      {/* Input Field */}
+      <input
+        type="text"
+        placeholder="Search by Dua Name"
+        className="md:w-[370px] h-full border border-green-500 border-l-transparent px-4 outline-none rounded-r-lg"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      {/* Clear Icon */}
+      {search && (
+        <IoClose
+          onClick={() => setSearch("")}
+          className="text-xl absolute right-4 text-gray-500 hover:text-red-500 cursor-pointer duration-200"
+        />
+      )}
+    </div>
+  );
+}
