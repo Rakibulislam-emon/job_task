@@ -7,9 +7,9 @@ export default function SearchCategory() {
   const [search, setSearch] = useState("");
 
   return (
-    <div className="hidden md:flex h-16 relative items-center border-green-500 mt-2 ">
+    <div className="hidden md:flex h-16 relative items-center border-green-500 mt-2  w-full">
       {/* Search Icon on the Left */}
-      <button className="w-10 h-16 flex items-center justify-center text-gray-400 bg-white border-r-transparent border border-green-500    duration-200 cursor-pointer rounded-l-lg">
+      <button className="w-10 h-16 flex items-center justify-center text-gray-400 bg-white border-r-transparent border border-green-500  duration-200 cursor-pointer rounded-l-lg">
         <IoSearchSharp size={28}/>
       </button>
 

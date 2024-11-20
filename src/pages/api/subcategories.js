@@ -4,8 +4,8 @@ export default async function handler(req, res) {
   const db = await getDatabase();
 
   try {
-    // Get category_id from the query string
-    const categoryId = req.query.categoryId; 
+    // Get categoryId from the query string
+    const categoryId = req.query.categoryId;
 
     // Make sure categoryId is provided
     if (!categoryId) {
