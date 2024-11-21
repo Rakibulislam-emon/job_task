@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useDuaContext } from '../Surah/ContextProvider';
+import categoryIcons from './categoryIcons'; 
 
 export default function CategoryContentCard({ getData }) {
   const { setSubcategoryId } = useDuaContext();
@@ -35,21 +36,33 @@ export default function CategoryContentCard({ getData }) {
     }
   };
 
+  // Function to get the corresponding icon based on category id
+  const getIconForCategory = (categoryId) => {
+    const icon = categoryIcons.find(icon => icon.id === categoryId); // Match by category id
+    return icon ? icon.icon : null; // Return the icon if found, otherwise null
+  };
+
   return (
     <div className="overflow-y-auto lg:max-h-[70vh]">
       {getData.map((category) => (
         <div key={category.id} className="p-4">
-          <div className='flex justify-between  cursor-pointer'
-            onClick={() => handleGetSubData(category.cat_id)}  // Pass the category ID on click
-
-          >
-            <div
-              className="flex gap-x-3"
-            >
-              <Image src={'/icons/profile.svg'} width={40} height={40} alt="category icon" />
-              <div>
-                <h2>{category.cat_name_en}</h2>
-                <h2>Subcategory: {category.no_of_subcat}</h2>
+          <div className="flex justify-between cursor-pointer" onClick={() => handleGetSubData(category.cat_id)}>
+            <div className="flex gap-x-3">
+              {/* Display the category icon */}
+              <div className='flex gap-x-2'>
+                {getIconForCategory(category.cat_id) && (
+                 <Image 
+                 src={getIconForCategory(category.cat_id)} 
+                 width={40} // Only set width
+                 height={40} // Remove this to auto calculate height
+                 alt="category icon" 
+                 style={{ width: '40px', height: 'auto' }} // CSS ensures aspect ratio is maintained
+               />
+                )}
+                <div>
+                  <h2>{category.cat_name_en}</h2>
+                  <h2>Subcategory: {category.no_of_subcat}</h2>
+                </div>
               </div>
             </div>
             <div className="text-center border-l-2">

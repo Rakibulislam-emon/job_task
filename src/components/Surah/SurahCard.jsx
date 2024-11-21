@@ -2,13 +2,15 @@
 import { useEffect, useState } from "react";
 import { useDuaContext } from "./ContextProvider";
 import DuaCard from "./DuaCard";
+import { useSearch } from "../Category/SearchContext";
 
 export default function SurahCard() {
-    const { subcategoryId,setSectionTitle } = useDuaContext();
+    const { search } = useSearch()
+
+    const { subcategoryId, setSectionTitle } = useDuaContext();
     const [duas, setDuas] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    console.log("SurahCard Rendered with subcategoryId:", subcategoryId);
 
     useEffect(() => {
 
@@ -29,14 +31,20 @@ export default function SurahCard() {
 
         fetchDuas();
     }, [subcategoryId]);
-    
+    const filteredData = search
+        ? duas.filter((item) =>
+            item?.refference_en?.toLowerCase().includes(search.toLowerCase())
+        )
+        : duas;
+
+
     return (
         <div className="w-full p-6 bg-gray-50">
 
             {loading ? (
-                <p>Loading...</p>
+                <p className="text-center">Loading......</p>
             ) : (
-                <DuaCard duas={duas} />
+                <DuaCard duas={filteredData} />
             )}
         </div>
     );

@@ -1,44 +1,55 @@
-"use client"
-import { fetchData } from '@/db/lib/api'
-import React, { useEffect, useState } from 'react'
-import CategoryContentCard from './CategoryContentCard'
+"use client";
+import React, { useEffect, useState } from 'react';
+import CategoryContentCard from './CategoryContentCard';
+import { useSearch } from './SearchContext';
 
-export default  function CategoryContents() {
-  // const url = 'http://localhost:3000/api/categories'
-  // const getData = await fetchData(url)
-  
-  const [getData, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+export default function CategoryContents() {
+  const { searchTerm } = useSearch(); // Retrieve searchTerm from context
 
-    useEffect(() => {
-        // Function to fetch data
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const response = await fetch('http://localhost:3000/api/categories');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                const result = await response.json();
-                setData(result);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-        fetchData();
-    }, []); // Empty dependency array ensures it runs only once
+  // Fetch data when the component mounts
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:3000/api/categories');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.json();
+        setData(result); // Store the fetched data in state
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
-  
+    fetchData(); // Call fetchData to load the data
+  }, []); // Empty dependency array to ensure it runs only once when the component mounts
 
+  // Filter data based on the searchTerm if it exists, otherwise show all data
+  const filteredData = searchTerm
+    ? data.filter((item) =>
+      item?.cat_name_en?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    : data;
+
+  // Show loading or error states if applicable
+  if (loading) return <p className='text-center'>loading....</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  // Return the data, either filtered or all data if no search term
   return (
-    <div className='border w-full  '>
-      <CategoryContentCard getData={getData}/>
+    <div className='border w-full'>
+      {filteredData.length > 0 ? (
+        <CategoryContentCard getData={filteredData} />
+      ) : (
+        <p>No categories found</p> // Display message if no data matches the search
+      )}
     </div>
-  )
+  );
 }

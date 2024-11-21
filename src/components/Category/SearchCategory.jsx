@@ -2,9 +2,10 @@
 import React, { useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
+import { useSearch } from "./SearchContext";
 
 export default function SearchCategory() {
-  const [search, setSearch] = useState("");
+  const { searchTerm, setSearchTerm } = useSearch();
 
   return (
     <div className="hidden md:flex h-16 relative items-center border-green-500 mt-2  w-full">
@@ -18,14 +19,14 @@ export default function SearchCategory() {
         type="text"
         placeholder="Search by Dua Name"
         className="md:w-[370px] h-full border border-green-500 border-l-transparent px-4 outline-none rounded-r-lg"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
 
       {/* Clear Icon */}
-      {search && (
+      {searchTerm && (
         <IoClose
-          onClick={() => setSearch("")}
+          onClick={() => setSearchTerm("")}
           className="text-xl absolute right-4 text-gray-500 hover:text-red-500 cursor-pointer duration-200"
         />
       )}

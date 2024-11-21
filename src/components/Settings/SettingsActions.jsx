@@ -2,6 +2,7 @@ import React from 'react';
 import { IoLanguage } from 'react-icons/io5';
 import { PiCardsThreeBold } from 'react-icons/pi';
 import { TbCategory } from 'react-icons/tb';
+import ToggleButton from './ToggleButton';
 
 const settings = [
   { icon: <IoLanguage size={24} />, label: 'Language Settings' },
@@ -26,7 +27,12 @@ export default function SettingsActions() {
             <span className="text-sm font-medium text-gray-800">{setting.label}</span>
           </li>
         ))}
+        <li className='flex items-center justify-between pt-4'>
+         <h2 className='font-medium'>Night mode</h2>
+          <ToggleButton/>
+        </li>
       </ul>
+
     </div>
   );
 }
