@@ -9,7 +9,7 @@ export default function DuaActions() {
     return (
         <div className="flex justify-between">
             <FaCirclePlay size={40} className=" text-green-500 cursor-pointer" />
-            <span className="flex gap-x-10">
+            <span className="flex lg:gap-x-10 gap-x-3">
                 <BsCopy size={24} className="bg-white cursor-pointer" />
                 <CiBookmark size={24} className=" cursor-pointer"/>
                 <PiLightbulbFilamentLight size={24} className=" cursor-pointer"/>

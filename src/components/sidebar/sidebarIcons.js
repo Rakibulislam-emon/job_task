@@ -4,6 +4,7 @@ import { IoBookOutline } from 'react-icons/io5';
 import { PiBatteryPlusVerticalLight, PiChatsCircleDuotone } from 'react-icons/pi';
 import { TbCategory2 } from 'react-icons/tb';
 import { CiBookmark } from 'react-icons/ci';
+import { CgProfile } from "react-icons/cg";
 
 
 // // sidebarIcons.js
@@ -25,4 +26,12 @@ import { CiBookmark } from 'react-icons/ci';
     { component: PiBatteryPlusVerticalLight, key: 'battery' },
     { component: PiChatsCircleDuotone, key: 'chats' },
     { component: IoBookOutline, key: 'book' },
+  ];
+
+  export const bottomIcons = [
+    { component: GoHome, key: 'home' },
+    { component: TbCategory2, key: 'category' },
+    { component: HiOutlineLightBulb, key: 'lightbulb' },
+    { component: CiBookmark, key: 'bookmark' },
+    { component: CgProfile, key: 'profile' },
   ];

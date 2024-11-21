@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { IoSearchSharp, IoClose } from "react-icons/io5";
 import { CiSettings } from 'react-icons/ci';
 import SettingsActions from '../Settings/SettingsActions';
+import { RxCrossCircled } from "react-icons/rx";
 
 export default function Navbar() {
     const [search, setSearch] = useState('');
@@ -16,14 +17,19 @@ export default function Navbar() {
             <h1 className='text-3xl'>Dua Page</h1>
             
             {/* Settings Toggle Icon */}
-            <CiSettings
+           { open ?
+            <RxCrossCircled
                 onClick={toggle}
-                className='lg:hidden cursor-pointer'
+                className='lg:hidden cursor-pointer z-[10000]  fixed right-0'
                 size={40}
-            />
+            /> :<CiSettings
+                onClick={toggle}
+                className='lg:hidden cursor-pointer z-[3000]'
+                size={40}
+            /> }
              {/* Settings Actions (Visible when toggled) */}
              {open && (
-                <div className='lg:hidden '>
+                <div className='lg:hidden fixed z-[2000] h-screen top-0  border border-black w-full'>
                     <SettingsActions />
                 </div>
             )}

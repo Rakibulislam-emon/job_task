@@ -12,16 +12,18 @@ const settings = [
 
 export default function SettingsActions() {
   return (
-    <div className="border  bg-white  rounded-lg ">
-      <h1 className="text-2xl font-semibold mb-8">SETTINGS</h1>
-      <ul className="space-y-6 w-full">
+    <div className="bg-white rounded-lg shadow-md p-6 w-full   max-w-md mx-auto">
+      <h1 className="text-2xl font-semibold mb-6 text-gray-800 text-center">Settings</h1>
+      <ul className="divide-y divide-gray-200">
         {settings.map((setting, index) => (
           <li
             key={index}
-            className={`flex items-center space-x-4 w-full cursor-pointer border-b py-4 hover:${setting.hoverColor || 'text-green-600'}`}
+            className={`flex items-center space-x-4 p-4 hover:${setting.hoverColor || 'text-green-600'} transition-colors duration-200 cursor-pointer`}
+            role="button"
+            aria-label={`Navigate to ${setting.label}`}
           >
-            {setting.icon}
-            <span className="text-sm font-medium">{setting.label}</span>
+            <span className="text-gray-600">{setting.icon}</span>
+            <span className="text-sm font-medium text-gray-800">{setting.label}</span>
           </li>
         ))}
       </ul>
