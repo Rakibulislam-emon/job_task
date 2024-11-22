@@ -6,6 +6,8 @@ import { useDuaContext } from '../Surah/ContextProvider';
 import categoryIcons from './categoryIcons'; 
 
 export default function CategoryContentCard({ getData }) {
+  const url = process.env.NEXT_PUBLIC_API_URL
+  console.log('url:', url)
   const { setSubcategoryId } = useDuaContext();
   const [subcategories, setSubcategories] = useState([]);
   const [expandedCategoryId, setExpandedCategoryId] = useState(null);
@@ -27,7 +29,7 @@ export default function CategoryContentCard({ getData }) {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/api/subcategories?categoryId=${categoryId}`);
+      const response = await fetch(`${url}/api/subcategories?categoryId=${categoryId}`);
       const data = await response.json();
       setSubcategories(data);  // Store fetched subcategories in the state
       setExpandedCategoryId(categoryId);  // Set the clicked category as expanded
