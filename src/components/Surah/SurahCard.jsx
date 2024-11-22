@@ -5,7 +5,7 @@ import DuaCard from "./DuaCard";
 import { useSearch } from "../Category/SearchContext";
 
 export default function SurahCard() {
-    const url = process.env.NEXT_PUBLIC_API_URL
+    // const url = process.env.NEXT_PUBLIC_API_URL
 
     const { search } = useSearch()
 
@@ -19,10 +19,23 @@ export default function SurahCard() {
         const fetchDuas = async () => {
             setLoading(true);
             try {
-                const response = await fetch(subcategoryId ? `${url}/api/duas?subcategoryId=${subcategoryId}` : `${url}/api/duas?subcategoryId=${1}`);
+                const url = process.env.NEXT_PUBLIC_API_URL;
+                const endpoint = subcategoryId
+                    ? `${url}/api/duas?subcategoryId=${subcategoryId}`
+                    : `${url}/api/duas?subcategoryId=1`;
+        
+                console.log("Fetching URL:", endpoint);
+        
+                const response = await fetch(endpoint);
+        
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+        
                 const data = await response.json();
-                setSectionTitle(data[1]?.dua_name_en
-                )
+                console.log("Fetched Data:", data);
+        
+                setSectionTitle(data[1]?.dua_name_en);
                 setDuas(data);
             } catch (error) {
                 console.error("Error fetching duas:", error.message);
@@ -30,9 +43,12 @@ export default function SurahCard() {
                 setLoading(false);
             }
         };
+        
 
         fetchDuas();
     }, [subcategoryId]);
+
+    
     const filteredData = search
         ? duas.filter((item) =>
             item?.refference_en?.toLowerCase().includes(search.toLowerCase())
